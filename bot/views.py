@@ -8,7 +8,7 @@ def confirmation(request):
     if request.method == "POST":
         data = request.body.decode('utf-8')
         received_json_data = json.loads(data)
-        path = ''
+        path = '/home/vktaxibot/vktaxibot/json.txt'
         f = open(path, 'w')
         f.write(received_json_data)
     return HttpResponse("Hello, world!")

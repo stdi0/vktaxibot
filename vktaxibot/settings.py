@@ -25,7 +25,10 @@ SECRET_KEY = '1^4ydhb72kwi)kec=y4ual)g=k%5o!(u-uox(+ckgumn^+g&(v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'vktaxibot.pythonanywhere.com',
+    ]
+
 
 
 # Application definition

@@ -6,10 +6,10 @@ import os
 # Create your views here.
 def confirmation(request):
     if request.method == "POST":
-        data = request.body.decode('utf-8')
-        received_json_data = json.loads(data)
+        #data = request.body.decode('utf-8')
+        #received_json_data = json.loads(data)
         path = '/home/vktaxibot/vktaxibot/json.txt'
         f = open(path, 'w')
-        f.write(received_json_data)
+        f.write('Hello')
     return HttpResponse("Hello, world!")
 

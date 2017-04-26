@@ -15,7 +15,7 @@ def confirmation(request):
         #received_json_data = json.loads(data)
         path = '/home/vktaxibot/vktaxibot/json.txt'
         f = open(path, 'w')
-        f.write(request.POST['type'])
+        f.write('Hello')
     return HttpResponse("No")
     
 

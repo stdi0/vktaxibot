@@ -1,0 +1,76 @@
+{% extends 'bot/base.html' %}
+
+{% block content %}
+
+<div class="container">
+<div class="row">
+<div class="col-md-8">
+
+{% if result %}
+
+<div class="orders">
+<p class="lead">Завершенные заказы</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<td>
+<strong>№</strong>
+</td>
+<td>
+<strong>Дата</strong>
+</td>
+<td>
+<strong>Сообщение</strong>
+</td>
+<td>
+<strong>Действие</strong>
+</td>
+</tr>
+</thead>
+<tbody>
+{% for order in result %}
+<tr>
+<td>
+{{ order.pos }}
+</td>
+<td>
+{{ order.date }}
+</td>
+<td>
+{{ order.message }}
+</td>
+<td>
+Завершен
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if result.has_previous %}
+            <a href="?page={{ result.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ result.number }} of {{ result.paginator.num_pages }}.
+        </span>
+
+        {% if result.has_next %}
+            <a href="?page={{ result.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+
+{% else %}
+<p>404 - page not found.</p>
+{% endif %}
+
+</div>
+</div>
+</div>
+
+{% endblock content %}

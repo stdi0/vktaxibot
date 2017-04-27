@@ -16,9 +16,17 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from bot import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^bot/', include('bot.urls')),
+    url(r'^bot/', views.bot, name='bot'),
+    url(r'^$', views.index, name='index'),
+    url(r'^active_orders/', views.active_orders, name='active_orders'),
+    url(r'^completed_orders/', views.completed_orders, name='completed_orders'),
+    url(r'^complete/(?P<pos>\d*)/$', views.complete, name='complete'),
+    url(r'^login/', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout,
+                          {'next_page': '/'}),
 ]

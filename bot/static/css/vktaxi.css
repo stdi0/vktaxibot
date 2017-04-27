@@ -1,0 +1,35 @@
+.navigation {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.container {
+	width: 900px;
+	padding: 0px;
+
+}
+
+.orders {
+	width: 900px;
+	padding: 25px;
+}
+
+.lead {
+	margin-bottom: 0px;
+}
+
+.form {
+	padding: 25px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Фиксированная высота футера */
+	height: 120px;
+	background-color: #f5f5f5;
+}
+
+.pagination {
+}

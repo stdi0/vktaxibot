@@ -86,7 +86,7 @@ def bot(request):
             input_message = received_json_data['object']['body']
             order = Order(user_id=user_id, message=input_message)
             order.save()
-            output_message = 'Hi,%20im%20bot'
+            output_message = 'Hi'
             #data = urllib.parse.urlencode({'user_id': user_id, 'message': output_message, 'token': token}).encode()
             #request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send')
             request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + output_message + '&access_token=' + token)

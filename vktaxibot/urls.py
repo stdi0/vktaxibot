@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^active_orders/', views.active_orders, name='active_orders'),
     url(r'^completed_orders/', views.completed_orders, name='completed_orders'),
     url(r'^complete/(?P<id>\d*)/$', views.complete, name='complete'),
+    url(r'^cancel/(?P<id>\d*)/$', views.cancel, name='cancel'),
     url(r'^login/', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout,
                           {'next_page': '/'}),

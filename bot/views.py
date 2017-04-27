@@ -68,7 +68,7 @@ def complete(request, id):
     order =  get_object_or_404(Order, id=id)
     user_id = order.user_id
     message = 'Ваш заказ направлен водителям. Ожидайте звонка или смс.'
-    request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + str(message.encode('utf-8')) + '&access_token=' + token)
+    request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(message) + '&access_token=' + token)
     resp = urllib.request.urlopen(request)
     order.active = False
     order.save()

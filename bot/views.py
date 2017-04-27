@@ -10,6 +10,7 @@ import urllib.parse
 import json
 import os
 from .models import Order
+from urllib.parse import quote
 
 # Create your views here.
 
@@ -87,10 +88,10 @@ def bot(request):
             order = Order(user_id=user_id, message=input_message)
             order.save()
             output_message = 'Hi'
-            data = urllib.parse.urlencode({'user_id': user_id, 'message': output_message, 'token': token})
-            request = urllib.request.Request('https://api.vk.com/method/messages.send?' + data)
+            #data = urllib.parse.urlencode({'user_id': user_id, 'message': output_message, 'token': token})
+            #request = urllib.request.Request('https://api.vk.com/method/messages.send?' + data)
             #request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send')
-            #request = urllib.request.Request('https://api.vk.com/method/messages.send?' + str(user_id) + '&message=' + quote_plus(output_message) + '&access_token=' + token)
+            request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
             resp = urllib.request.urlopen(request)
             return HttpResponse('ok')
 

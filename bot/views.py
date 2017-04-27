@@ -87,9 +87,10 @@ def bot(request):
             order = Order(user_id=user_id, message=input_message)
             order.save()
             output_message = 'Спасибо,%20Ваш%20заказ%20принят%20в%20обработку!%20Ожидайте%20ответа.'
-            #data = urllib.parse.urlencode({'user_id': user_id, 'message': output_message, 'token': token}).encode()
+            data = urllib.parse.urlencode({'user_id': user_id, 'message': output_message, 'token': token}).encode()
+            request = urllib.request.Request('https://api.vk.com/method/messages.send?' + data)
             #request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send')
-            request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote_plus(output_message) + '&access_token=' + token)
+            #request = urllib.request.Request('https://api.vk.com/method/messages.send?' + str(user_id) + '&message=' + quote_plus(output_message) + '&access_token=' + token)
             resp = urllib.request.urlopen(request)
             return HttpResponse('ok')
 

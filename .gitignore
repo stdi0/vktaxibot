@@ -1,6 +1,5 @@
 *.pyc
 __pycache__
-migrations/
 myvenv
 db.sqlite3
 .DS_Store

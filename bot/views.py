@@ -89,7 +89,7 @@ def bot(request):
             output_message = 'Hi'
             #data = urllib.parse.urlencode({'user_id': user_id, 'message': output_message, 'token': token}).encode()
             #request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send')
-            request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + output_message + '&access_token=' + token)
+            request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + output_message + '&access_token=' + token)
             resp = urllib.request.urlopen(request)
             return HttpResponse('ok')
 

@@ -5,6 +5,7 @@ import urllib.request
 import urllib.parse
 import json
 import os
+from .models import Order
 
 # Create your views here.
 
@@ -38,11 +39,14 @@ def index(request):
             return HttpResponse(confirmation_token)
         elif received_json_data['type'] == 'message_new':
             user_id = received_json_data['object']['user_id']
+            input_message = received_json_data['object']['body']
+            order = Order(user_id=user_id, message=input_message)
+            order.save()
             #path = '/home/vktaxibot/vktaxibot/json.txt'
             #f = open(path, 'w')
             #f.write(str(user_id))
-            message = 'Hi'
-            request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + message + '&access_token=' + token)
+            output_message = 'Hi'
+            request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + output_message + '&access_token=' + token)
             resp = urllib.request.urlopen(request)
             return HttpResponse('ok')
 

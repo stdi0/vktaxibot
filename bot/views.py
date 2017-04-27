@@ -64,8 +64,8 @@ def completed_orders(request):
         return render(request, 'bot/completed_orders.html', context)
     return HttpResponseRedirect(reverse('login'))
 
-def complete(request, pos):
-    order =  get_object_or_404(Order, pos=pos)
+def complete(request, id):
+    order =  get_object_or_404(Order, id=id)
     user_id = order.user_id
     message = 'Ваш заказ направлен водителям. Ожидайте звонка или смс.'
     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + str(message.encode('utf-8')) + '&access_token=' + token)

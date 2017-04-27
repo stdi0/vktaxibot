@@ -79,7 +79,8 @@ def cancel(request, id):
     user_id = order.user_id
     message = 'Ваш заказ не может быть обработан. Проверьте корректность указанной Вами информации.'
     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(message) + '&access_token=' + token)
-    resp = urllib.request.urlopen(request)
+    resp = urllib.request.urlopen(request)   
+    order.delete() 
     return HttpResponseRedirect(reverse('active_orders'))
 
 

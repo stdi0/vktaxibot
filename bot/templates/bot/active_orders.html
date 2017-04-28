@@ -41,6 +41,9 @@
 <strong>Сообщение</strong>
 </td>
 <td>
+<strong>Цена</strong>
+</td>
+<td>
 <strong>Действие</strong>
 </td>
 </tr>
@@ -58,7 +61,13 @@
 {{ order.message }}
 </td>
 <td>
-<a href="/complete/{{ order.id }}">Выполнить</a> | <a href="/cancel/{{ order.id }}">Отклонить</a>
+<form id="cost" method="get" action="/complete">
+<input type="text" name="cost" size="15">
+<input type="hidden" name="id" value="{{ order.id }}">
+</form>
+</td>
+<td>
+<a onclick="document.getElementById('cost').submit(); return false;">Выполнить</a> | <a href="/cancel/{{ order.id }}">Отклонить</a>
 </td>
 </tr>
 {% endfor %}

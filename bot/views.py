@@ -69,10 +69,12 @@ def completed_orders(request):
         return render(request, 'bot/completed_orders.html', context)
     return HttpResponseRedirect(reverse('login'))
 
-def complete(request, id):
-    order =  get_object_or_404(Order, id=id)
+def complete(request):
+    cost = request.GET['cost']
+    order_id = request.GET['id']
+    order =  get_object_or_404(Order, id=int(order_id))
     user_id = order.user_id
-    message = 'Ваш заказ направлен водителям. Ожидайте звонка или смс.'
+    message = 'Ваш заказ направлен водителям. Стоимость по Вашему заказу составит' + cost + 'руб. Ожидайте звонка или смс. Для отмены заказа напишите \"Отмена\"'
     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(message) + '&access_token=' + token)
     resp = urllib.request.urlopen(request)
     order.active = False

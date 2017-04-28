@@ -21,7 +21,9 @@ token = 'b87ef73d04d9f9eefae28697b2d27acaa21e862c382b8bc3af5bc0cf1aada1109aa46af
 
 def index(request):
     #context = {'result': result}
-    return render(request, 'bot/index.html')
+    if request.user.is_authenticated():
+        return render(request, 'bot/index.html')
+    return HttpResponseRedirect(reverse('login'))
 
 def active_orders(request):
     if request.user.is_authenticated():

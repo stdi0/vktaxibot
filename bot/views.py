@@ -126,7 +126,7 @@ def bot(request):
             user_id = received_json_data['object']['user_id']
             input_message = received_json_data['object']['body']
 
-            request = urllib.request.Request('https://api.vk.com/method/groups.isMember?group_id=' + group_id + '&user_id=' + user_id)
+            request = urllib.request.Request('https://api.vk.com/method/groups.isMember?group_id=' + str(group_id) + '&user_id=' + str(user_id))
             resp = urllib.request.urlopen(request)
             resp = json.loads(resp.read().decode('utf-8'))
             

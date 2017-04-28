@@ -1,7 +1,5 @@
 {% extends 'bot/base.html' %}
 
-{% load staticfiles %}
-
 {% block content %}
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -13,7 +11,7 @@
 
 <!-- Collect the nav links, forms, and other content for toggling -->
 <ul class="nav navbar-nav">
-<li><a href="/index">Главная</a></li>
+<li class="active"><a href="/index">Главная</a></li>
 <li><a href="/active_orders">Активные заказы</a></li>
 <li><a href="/completed_orders">Завершенные заказы</a></li>
 </ul>
@@ -25,28 +23,11 @@
 <div class="row">
 <div class="col-md-8">
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<form method="post" action="/login/">
-{% csrf_token %}
-<div>
-<p>{{ form.username.label_tag }}</p>
-<p>{{ form.username }}</p>
-</div>
-<div>
-<p>{{ form.password.label_tag }}</p>
-<p>{{ form.password }}</p>
-</div>
-<br>
-<input type="submit" value="Войти" />
-<input type="hidden" name="next" value='/' />
-</form>
+<p>Добро пожаловать в панель управления заказами VK Taxi!</p>
+<a href="https://vk.com/vktaxibot">Перейти на страницу ВКонтакте</a>
 
 </div>
 </div>
 </div>
 
 {% endblock content %}
-

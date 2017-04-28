@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^index/', views.index, name='index'),
     url(r'^bot/', views.bot, name='bot'),
     url(r'^$', views.index, name='index'),
     url(r'^active_orders/', views.active_orders, name='active_orders'),

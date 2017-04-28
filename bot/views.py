@@ -20,7 +20,8 @@ confirmation_token = 'd144b920'
 token = 'b87ef73d04d9f9eefae28697b2d27acaa21e862c382b8bc3af5bc0cf1aada1109aa46afd118777757abe5'
 
 def index(request):
-    return HttpResponse('Index')
+    #context = {'result': result}
+    return render(request, 'bot/index.html')
 
 def active_orders(request):
     if request.user.is_authenticated():

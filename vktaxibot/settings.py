@@ -127,3 +127,12 @@ STATIC_ROOT = BASE_DIR + '/static/'
 
 STATIC_DOC_ROOT = BASE_DIR + '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "vktaxibot@gmail.com"
+EMAIL_HOST_PASSWORD = "joo0shaij"
+EMAIL_USE_TLS = True
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

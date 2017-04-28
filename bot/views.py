@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.conf import settings
 import urllib.request
 import urllib.parse
 import json
@@ -102,6 +104,7 @@ def bot(request):
             #request = urllib.request.Request('GET', 'https://api.vk.com/method/messages.send')
             request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
             resp = urllib.request.urlopen(request)
+            send_mail('Новый заказ', 'Создан новый заказ! http://vktaxibot.pythonanywhere.com/active_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
             return HttpResponse('ok')
 
     return HttpResponse('ok')

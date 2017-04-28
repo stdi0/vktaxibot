@@ -18,6 +18,7 @@ from urllib.parse import quote
 
 confirmation_token = 'd144b920'
 token = 'b87ef73d04d9f9eefae28697b2d27acaa21e862c382b8bc3af5bc0cf1aada1109aa46afd118777757abe5'
+group_id = '145824671'
 
 def index(request):
     #context = {'result': result}
@@ -124,6 +125,17 @@ def bot(request):
         elif received_json_data['type'] == 'message_new':
             user_id = received_json_data['object']['user_id']
             input_message = received_json_data['object']['body']
+
+            request = urllib.request.Request('https://api.vk.com/method/groups.isMember?group_id=' + group_id + '&user_id=' + user_id)
+            resp = urllib.request.urlopen(request)
+            resp = json.loads(resp.read().decode('utf-8'))
+            
+            if resp.get('response') == 0:
+                output_message = 'Прежде чем начать пользоваться VK Taxi, необходимо подписаться: http://vk.com/vktaxibot' 
+                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
+                resp = urllib.request.urlopen(request)
+                return HttpResponse('ok')
+
             if input_message == 'отмена' or input_message == 'Отмена' or input_message == 'Отмен':
                 orders = Order.objects.filter(user_id=user_id).exclude(status=2)
                 if orders:

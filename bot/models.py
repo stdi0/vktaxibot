@@ -6,7 +6,10 @@ class Order(models.Model):
     user_id = models.CharField(max_length=30, default='')
     message = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=True)
+    status = models.IntegerField(default=1)
+    #1 - active
+    #0 - completed
+    #3 - canceled
 
     def __str__(self):
         return self.user_id

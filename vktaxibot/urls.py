@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^active_orders/', views.active_orders, name='active_orders'),
     url(r'^completed_orders/', views.completed_orders, name='completed_orders'),
+    url(r'^canceled_orders/', views.canceled_orders, name='canceled_orders'),
     #url(r'^complete/(?P<id>\d*)/$', views.complete, name='complete'),
     url(r'^complete/$', views.complete, name='complete'),
     url(r'^cancel/(?P<id>\d*)/$', views.cancel, name='cancel'),

@@ -130,10 +130,10 @@ def bot(request):
                     for order in orders:
                         order.status = 2
                         order.save()
-                    resp = urllib.request.urlopen(request)
                     send_mail('Отмена заказа', 'Отмена заказа. http://vktaxibot.pythonanywhere.com/canceled_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
                 output_message = 'Все активные заказы отменены. Спасибо.'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
+                resp = urllib.request.urlopen(request)
             else:    
                 order = Order(user_id=user_id, message=input_message)
                 order.save()

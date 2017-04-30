@@ -149,38 +149,6 @@ def bot(request):
                 resp = urllib.request.urlopen(request)
                 return HttpResponse('ok')
 
-            stage1 = Order.objects.filter(user_id=user_id, active=True, city=None)
-            if stage1:
-                #Проверка на пользовательское исключение
-                if input_message.lower() == 'исключение':
-                    stage1.city = stage1.tmp
-                    stage1.save()
-                    output_message = 'Заказ номер ' + order.id + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\"'
-                    request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                    resp = urllib.request.urlopen(request)
-                    return HttpResponse('ok')
-
-                request = urllib.request.Request('http://kladr-api.ru/api.php?query=Murmansk&contentType=city&typeCode=1&token=5904d4ee0a69de0b798b4570')
-                resp = urllib.request.urlopen(request)
-                resp = json.loads(resp.read().decode('utf-8'))
-                if resp.get('result'):
-                    stage1.city = input_message
-                    stage1.save()
-
-                    request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + quote(stage1.city) + '&contentType=city&typeCode=1')
-                    resp = urllib.request.urlopen(request)
-                    resp = json.loads(resp.read().decode('utf-8'))
-                    cityId = resp.get('result')[0]['id']
-
-                    output_message = 'Заказ номер ' + order.id + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\"'
-                else:
-                    stage1.tmp = input_message
-                    stage1.save()
-                    output_message = 'Заказ номер ' + order.id + ': Извините, такой город не найден. Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\"'
-                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                resp = urllib.request.urlopen(request)
-                #Здесь проверяем является ли входящее сообщение нужным адресом
-                return HttpResponse('ok')
 
             if input_message.lower() == 'такси':
                 #Снимаем активность со старых заказов
@@ -192,6 +160,8 @@ def bot(request):
 
                 order = Order(user_id=user_id, active=True)
                 order.save()
+                request = urllib.request.Request('http://kladr-api.ru/api.php?query=Murmansk&contentType=city&typeCode=1&token=5904d4ee0a69de0b798b4570')
+                resp = urllib.request.urlopen(request)
                 output_message = 'Вашему заказу присвоен номер ' + str(order.id) + '. Чтобы продолжить, напишите свой город. Для отмены, напишите слово \"отмена\"'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)

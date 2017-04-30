@@ -118,7 +118,7 @@ def cancel(request, id):
 
 @csrf_exempt
 def bot(request):
-    req = urllib.request.Request('http://kladr-api.ru/api.php?query=Murmansk&contentType=city&typeCode=1&token=5904d4ee0a69de0b798b4570')
+    req = urllib.request.Request('http://kladr-api.ru/api.php?query=Murmansk&contentType=city&typeCode=1&token=5904d4ee0a69de0b798b4570', headers={'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'})
     resp = urllib.request.urlopen(req)
     return HttpResponse('ok')
     

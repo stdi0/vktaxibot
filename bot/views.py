@@ -160,7 +160,7 @@ def bot(request):
                     resp = urllib.request.urlopen(request)
                     return HttpResponse('ok')
 
-                request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + quote(input_massage.strip()) + '&contentType=city&typeCode=1')
+                request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + quote(input_message.strip()) + '&contentType=city&typeCode=1')
                 resp = urllib.request.urlopen(request)
                 resp = json.loads(resp.read().decode('utf-8'))
                 if resp.get('result'):
@@ -197,7 +197,7 @@ def bot(request):
                 result = re.sub(r'^у*л*и*ц*а*п*р*о*с*п*е*к*т*.?\s*', '', input_message.strip())
                 result = re.sub(r',?\sд*о*м*с*т*р*о*е*н*и*е*.?\s*\d+.*$', '', result)
 
-                request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + result +'&contentType=street&cityId=' + cityId)
+                request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + quote(result) +'&contentType=street&cityId=' + cityId)
                 resp = urllib.request.urlopen(request)
                 resp = json.loads(resp.read().decode('utf-8'))
                 if resp.get('result'):
@@ -230,7 +230,7 @@ def bot(request):
                     result = re.sub(r'^у*л*и*ц*а*п*р*о*с*п*е*к*т*.?\s*', '', input_message.strip())
                     result = re.sub(r',?\sд*о*м*с*т*р*о*е*н*и*е*.?\s*\d+.*$', '', result)
 
-                    request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + result +'&contentType=street&cityId=' + cityId)
+                    request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + quote(result) +'&contentType=street&cityId=' + cityId)
                     resp = urllib.request.urlopen(request)
                     resp = json.loads(resp.read().decode('utf-8'))
 

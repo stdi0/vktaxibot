@@ -159,7 +159,7 @@ def bot(request):
 
                 order = Order(user_id=user_id, active=True)
                 order.save()
-                output_message = 'Вашему заказу присвоен номер ' + order.id + '. Чтобы продолжить, напишите свой город. Для отмены, напишите слово \"отмена\"'
+                output_message = 'Вашему заказу присвоен номер ' + str(order.id) + '. Чтобы продолжить, напишите свой город. Для отмены, напишите слово \"отмена\"'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)
 

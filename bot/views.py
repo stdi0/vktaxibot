@@ -22,7 +22,7 @@ from urllib.parse import quote
 confirmation_token = 'd144b920'
 token = 'b87ef73d04d9f9eefae28697b2d27acaa21e862c382b8bc3af5bc0cf1aada1109aa46afd118777757abe5'
 group_id = '145824671'
-API_KEY = '467e62a20de68fab579accd8ba8c6ca6ee3c7691'
+API_KEY = '76150e77f594d464ca0f2f580c9b7250e50295ec'
 BASE_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/%s'
 
 def index(request):

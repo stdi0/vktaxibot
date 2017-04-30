@@ -118,62 +118,8 @@ def cancel(request, id):
 
 @csrf_exempt
 def bot(request):
-    if request.method == "POST":
-        data = request.body.decode('utf-8')
-        received_json_data = json.loads(data)
-        if received_json_data['type'] == 'confirmation':
-            return HttpResponse(confirmation_token)
-        elif received_json_data['type'] == 'message_new':
-            user_id = received_json_data['object']['user_id']
-            input_message = received_json_data['object']['body']
-
-            request = urllib.request.Request('https://api.vk.com/method/groups.isMember?group_id=' + str(group_id) + '&user_id=' + str(user_id))
-            resp = urllib.request.urlopen(request)
-            resp = json.loads(resp.read().decode('utf-8'))
-            
-            if resp.get('response') == 0:
-                output_message = 'Прежде чем начать пользоваться VK Taxi, необходимо подписаться: http://vk.com/vktaxibot' 
-                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                resp = urllib.request.urlopen(request)
-                return HttpResponse('ok')
-
-            if input_message == 'отмена' or input_message == 'Отмена' or input_message == 'Отмен':
-                orders = Order.objects.filter(user_id=user_id, active=True)
-                if orders:
-                    for order in orders:
-                        order.active = False
-                        order.save()
-                    send_mail('Отмена заказа', 'Отмена заказа. http://vktaxibot.pythonanywhere.com/canceled_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
-                output_message = 'Все активные заказы отменены. Спасибо.'
-                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                resp = urllib.request.urlopen(request)
-                return HttpResponse('ok')
-
-
-            if input_message.lower() == 'такси':
-                #Снимаем активность со старых заказов
-                old_orders = Order.objects.filter(user_id=user_id, active=True)
-                if old_orders:
-                    for order in old_orders:
-                        order.active = False
-                        order.save()
-
-                order = Order(user_id=user_id, active=True)
-                order.save()
-                request = urllib.request.Request('http://kladr-api.ru/api.php?query=Murmansk&contentType=city&typeCode=1&token=5904d4ee0a69de0b798b4570')
-                resp = urllib.request.urlopen(request)
-                output_message = 'Вашему заказу присвоен номер ' + str(order.id) + '. Чтобы продолжить, напишите свой город. Для отмены, напишите слово \"отмена\"'
-                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                resp = urllib.request.urlopen(request)
-
-                return HttpResponse('ok')
-            else:
-                output_message = 'Для заказа машины, напишите слово \"Такси\"'
-                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                resp = urllib.request.urlopen(request)
-
-                return HttpResponse('ok')
-
+    request = urllib.request.Request('http://kladr-api.ru/api.php?query=Murmansk&contentType=city&typeCode=1&token=5904d4ee0a69de0b798b4570')
+    resp = urllib.request.urlopen(request)
     return HttpResponse('ok')
     
 

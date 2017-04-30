@@ -160,7 +160,7 @@ def bot(request):
                     resp = urllib.request.urlopen(request)
                     return HttpResponse('ok')
 
-                request = urllib.request.Request('http://kladr-api.ru/api.php?query=' + input_message.strip() + '&contentType=city&typeCode=1')
+                request = urllib.request.Request('http://kladr-api.ru/api.php?query=Мурманск&contentType=city&typeCode=1')
                 resp = urllib.request.urlopen(request)
                 resp = json.loads(resp.read().decode('utf-8'))
                 if resp.get('result'):

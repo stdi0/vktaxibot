@@ -9,7 +9,11 @@ class Order(models.Model):
     status = models.IntegerField(default=1)
     #1 - active
     #0 - completed
-    #3 - canceled
+    #2 - canceled
+    #3 - Error code
+    city = models.CharField(max_length=30, default='')
+    address_source = models.CharField(max_length=100, default='')
+    address_destination = models.TextField()
 
     def __str__(self):
         return self.user_id

@@ -244,13 +244,14 @@ def bot(request):
                             resp = urllib.request.urlopen(request)
                             send_mail('Новый заказ', 'Создан новый заказ! http://vktaxibot.pythonanywhere.com/active_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
                             break
-                else:
-                    output_message = 'Заказ номер ' + str(stage3[0].id) + ': Извините, адрес(а) не найден(ы). Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\"'
-                    request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
-                    resp = urllib.request.urlopen(request)
-                    return HttpResponse('ok')
-
+                            return HttpResponse('ok')
+                
+                output_message = 'Заказ номер ' + str(stage3[0].id) + ': Извините, адрес(а) не найден(ы). Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\"'
+                request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
+                resp = urllib.request.urlopen(request)
                 return HttpResponse('ok')
+
+                
 
             if input_message.lower() == 'такси':
                 #Снимаем активность со старых заказов

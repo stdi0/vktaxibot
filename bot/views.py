@@ -115,7 +115,7 @@ def cancel(request, id):
     message = 'Ваш заказ не может быть обработан. Проверьте корректность указанной Вами информации.'
     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(message) + '&access_token=' + token)
     resp = urllib.request.urlopen(request)   
-    order.status = 3
+    order.status = 2
     order.save() 
     return HttpResponseRedirect(reverse('active_orders'))
 
@@ -157,6 +157,7 @@ def bot(request):
                 if orders:
                     for order in orders:
                         order.active = False
+                        order.status = 2
                         order.save()
                     send_mail('Отмена заказа', 'Отмена заказа. http://vktaxibot.pythonanywhere.com/canceled_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
                 output_message = 'Все активные заказы отменены. Спасибо.'

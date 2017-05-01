@@ -15,6 +15,7 @@ class Order(models.Model):
     address_source = models.CharField(max_length=100, default=None, null=True)
     address_destination = models.TextField(default=None, null=True)
     active = models.BooleanField(default=False)
+    #canceled = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user_id

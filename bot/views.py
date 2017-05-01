@@ -207,10 +207,11 @@ def bot(request):
 
                 result = suggest(stage2[0].city + ' ' + input_message, 'address')
                 for i in result.get('suggestions'):
-                   if i['data']['street'] is not None:
-                    stage2[0].address_source = input_message
-                    stage2[0].save()
-                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, куда Вы хотите поехать, если адресов несколько, перечислите их через точку с запятой. Для отмены заказа, напишите слово \"отмена\"'
+                    if i['data']['street'] is not None:
+                        stage2[0].address_source = input_message
+                        stage2[0].save()
+                        output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, куда Вы хотите поехать, если адресов несколько, перечислите их через точку с запятой. Для отмены заказа, напишите слово \"отмена\"'
+                        break
                 else:
                     stage2[0].tmp = input_message
                     stage2[0].save()

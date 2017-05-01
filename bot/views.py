@@ -179,6 +179,7 @@ def bot(request):
                 result = suggest(input_message, 'address')
 
                 for i in result.get('suggestions'):
+                    input_message = re.sub('^.*\s', '', input_message.strip())
                     if str(i['data']['city']).lower() == input_message.lower():
                         stage1[0].city = input_message
                         stage1[0].save()

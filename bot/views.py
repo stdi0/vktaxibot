@@ -205,7 +205,7 @@ def bot(request):
                 #Распарсить адрес
                 #pattern = re.compile('у*л*.*\s*\w*\s[\w/\\]*')
 
-                result = suggest(stage2.city + ' ' + input_message, 'address')
+                result = suggest(stage2[0].city + ' ' + input_message, 'address')
                 for i in result.get('suggestions'):
                    if i['data']['street'] is not None:
                     stage2[0].address_source = input_message
@@ -225,7 +225,7 @@ def bot(request):
                 #Здесь проверяем является ли входящее сообщение нужным адресом
                 #result = re.sub(r'^у*л*и*ц*а*п*р*о*с*п*е*к*т*.?\s*', '', input_message.strip())
                 if input_message.lower() == 'исключение':
-                    stage3[0].address_destination = stage3.tmp
+                    stage3[0].address_destination = stage3[0].tmp
                     stage3[0].save()
                     output_message = 'Заказ номер ' + order.id + ': Спасибо, Ваш заказ принят в обработку! Ожидайте ответа. Для отмены заказа, напишите слово \"отмена\"'
                     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)

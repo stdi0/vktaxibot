@@ -152,14 +152,13 @@ def bot(request):
                 resp = urllib.request.urlopen(request)
                 return HttpResponse('ok')
 
-            if input_message == 'отмена' or input_message == 'Отмена' or input_message == 'Отмен':
-                orders = Order.objects.filter(user_id=user_id, active=True)
-                if orders:
-                    for order in orders:
-                        order.active = False
-                        order.status = 2
-                        order.save()
-                    send_mail('Отмена заказа', 'Отмена заказа. http://vktaxibot.pythonanywhere.com/canceled_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
+            match = re.findall(r'отмена\s(\d*)', input_message.lower())
+            if match: 
+                order = Order.objects.get(user_id=user_id, id=match[0])
+                order.active = False
+                order.status = 2
+                order.save()
+                send_mail('Отмена заказа', 'Отмена заказа. http://vktaxibot.pythonanywhere.com/canceled_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
                 output_message = 'Все активные заказы отменены. Спасибо.'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)

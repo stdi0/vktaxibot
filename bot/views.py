@@ -239,6 +239,7 @@ def bot(request):
                     for i in result.get('suggestions'):
                         if i['data']['street'] is not None:
                             stage3[0].address_destination = input_message
+                            stage3[0].save()
                             output_message = 'Заказ номер ' + str(stage3[0].id) + ': Спасибо, Ваш заказ принят в обработку! Ожидайте ответа. Для отмены заказа, напишите слово \"отмена\"'
                             request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                             resp = urllib.request.urlopen(request)

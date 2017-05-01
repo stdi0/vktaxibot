@@ -235,7 +235,7 @@ def bot(request):
 
                 addresses = re.split(r';', input_message.strip())
                 for address in addresses:
-                    result = suggest(address, 'address')
+                    result = suggest(stage3[0].city + ' ' + address, 'address')
                     for i in result.get('suggestions'):
                         if i['data']['street'] is not None:
                             stage3[0].address_destination = input_message

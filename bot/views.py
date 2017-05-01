@@ -102,7 +102,7 @@ def complete(request):
     order_id = request.GET['id']
     order =  get_object_or_404(Order, id=int(order_id))
     user_id = order.user_id
-    message = 'Заказ номер ' + order_id + ' направлен водителям. Стоимость по данному заказу составит ' + cost + ' руб. Ожидайте звонка или смс. Для отмены заказа напишите \"отмена\".'
+    message = 'Заказ номер ' + order_id + ' направлен водителям. Стоимость по данному заказу составит ' + cost + ' руб. Ожидайте звонка или смс. Для отмены заказа напишите \"отмена\" и номер заказа.'
     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(message) + '&access_token=' + token)
     resp = urllib.request.urlopen(request)
     order.status = 0
@@ -170,7 +170,7 @@ def bot(request):
                 if input_message.lower() == 'исключение':
                     stage1[0].city = stage1[0].tmp
                     stage1[0].save()
-                    output_message = 'Заказ номер ' + str(stage1[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\".'
+                    output_message = 'Заказ номер ' + str(stage1[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                     resp = urllib.request.urlopen(request)
                     return HttpResponse('ok')
@@ -182,12 +182,12 @@ def bot(request):
                     if str(i['data']['city']).lower() == input_message.lower():
                         stage1[0].city = input_message
                         stage1[0].save()
-                        output_message = 'Заказ номер ' + str(stage1[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\".'
+                        output_message = 'Заказ номер ' + str(stage1[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                         break
                 else:
                     stage1[0].tmp = input_message
                     stage1[0].save()
-                    output_message = 'Заказ номер ' + str(stage1[0].id) + ': Извините, такой город не найден. Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\".'
+                    output_message = 'Заказ номер ' + str(stage1[0].id) + ': Извините, такой город не найден. Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)
                 #Здесь проверяем является ли входящее сообщение нужным адресом
@@ -199,7 +199,7 @@ def bot(request):
                 if input_message.lower() == 'исключение':
                     stage2[0].address_source = stage2[0].tmp
                     stage2[0].save()
-                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, куда Вы хотите поехать, если адресов несколько, перечислите их через точку с запятой. Для отмены заказа, напишите слово \"отмена\".'
+                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, куда Вы хотите поехать, если адресов несколько, перечислите их через точку с запятой. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                     resp = urllib.request.urlopen(request)
                     return HttpResponse('ok')
@@ -211,12 +211,12 @@ def bot(request):
                     if i['data']['street'] is not None:
                         stage2[0].address_source = input_message
                         stage2[0].save()
-                        output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, куда Вы хотите поехать, если адресов несколько, перечислите их через точку с запятой. Для отмены заказа, напишите слово \"отмена\".'
+                        output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, куда Вы хотите поехать, если адресов несколько, перечислите их через точку с запятой. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                         break
                 else:
                     stage2[0].tmp = input_message
                     stage2[0].save()
-                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Извините, такой адрес не найден. Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\".'
+                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Извините, такой адрес не найден. Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)
                 #Здесь проверяем является ли входящее сообщение нужным адресом
@@ -229,7 +229,7 @@ def bot(request):
                 if input_message.lower() == 'исключение':
                     stage3[0].address_destination = stage3[0].tmp
                     stage3[0].save()
-                    output_message = 'Заказ номер ' + str(stage3[0].id) + ': Спасибо, Ваш заказ принят в обработку! Ожидайте ответа. Для отмены заказа, напишите слово \"отмена\".'
+                    output_message = 'Заказ номер ' + str(stage3[0].id) + ': Спасибо, Ваш заказ принят в обработку! Ожидайте ответа. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                     resp = urllib.request.urlopen(request)
                     return HttpResponse('ok')
@@ -242,13 +242,13 @@ def bot(request):
                             stage3[0].address_destination = input_message
                             stage3[0].active = False
                             stage3[0].save()
-                            output_message = 'Заказ номер ' + str(stage3[0].id) + ': Спасибо, Ваш заказ принят в обработку! Ожидайте ответа. Для отмены заказа, напишите слово \"отмена\".'
+                            output_message = 'Заказ номер ' + str(stage3[0].id) + ': Спасибо, Ваш заказ принят в обработку! Ожидайте ответа. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                             request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                             resp = urllib.request.urlopen(request)
                             send_mail('Новый заказ', 'Создан новый заказ! http://vktaxibot.pythonanywhere.com/active_orders', settings.EMAIL_HOST_USER, ['vktaxibot@gmail.com'])
                             return HttpResponse('ok')
                 
-                output_message = 'Заказ номер ' + str(stage3[0].id) + ': Извините, адрес(а) не найден(ы). Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\".'
+                output_message = 'Заказ номер ' + str(stage3[0].id) + ': Извините, адрес(а) не найден(ы). Проверьте правильность написания. Если Вы уверены, что не ошиблись, напишите слово \"Исключение\". Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)
                 return HttpResponse('ok')

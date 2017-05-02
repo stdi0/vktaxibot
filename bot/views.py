@@ -203,6 +203,13 @@ def bot(request):
                     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                     resp = urllib.request.urlopen(request)
                     return HttpResponse('ok')
+
+                house_num = re.findall(r'\s\d+.*$', input_message)
+                if not house_num:
+                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Ошибка, Вы не указали номер дома. Повторите ввод адреса. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
+                    request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
+                    resp = urllib.request.urlopen(request)
+                    return HttpResponse('ok')
                 #Распарсить адрес
                 #pattern = re.compile('у*л*.*\s*\w*\s[\w/\\]*')
 
@@ -236,6 +243,14 @@ def bot(request):
 
                 addresses = re.split(r';', input_message.strip())
                 for address in addresses:
+
+                    house_num = re.findall(r'\s\d+.*$', address)
+                    if not house_num:
+                        output_message = 'Заказ номер ' + str(stage2[0].id) + ': Ошибка, Вы не указали номер дома в адресе(ах). Повторите ввод адреса(ов). Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
+                        request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
+                        resp = urllib.request.urlopen(request)
+                        return HttpResponse('ok')
+
                     result = suggest(stage3[0].city + ' ' + address, 'address')
                     for i in result.get('suggestions'):
                         if i['data']['street'] is not None:

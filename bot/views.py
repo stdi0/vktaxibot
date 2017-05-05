@@ -196,11 +196,12 @@ def bot(request):
             stage2 = Order.objects.filter(user_id=user_id, active=True, phone=None)
             if stage2:
                 
-                stage2.phone = input_message
-                stage2.save()
-
-                output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
-
+                if input_message.strip():
+                    stage2.phone = input_message
+                    stage2.save()
+                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
+                else:
+                    output_message = 'Заказ номер ' + str(stage2[0].id) + ': Ошибка, Вы не ввели номер телефона. Повторите попытку. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                 request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                 resp = urllib.request.urlopen(request)
                 return HttpResponse('ok')    

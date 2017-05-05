@@ -197,8 +197,8 @@ def bot(request):
             if stage2:
                 
                 if input_message.strip():
-                    stage2.phone = input_message
-                    stage2.save()
+                    stage2[0].phone = input_message
+                    stage2[0].save()
                     output_message = 'Заказ номер ' + str(stage2[0].id) + ': Хорошо, чтобы продолжить, напишите адрес, откуда Вас забрать. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'
                 else:
                     output_message = 'Заказ номер ' + str(stage2[0].id) + ': Ошибка, Вы не ввели номер телефона. Повторите попытку. Для отмены заказа, напишите слово \"отмена\" и номер заказа.'

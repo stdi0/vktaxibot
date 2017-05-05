@@ -207,7 +207,7 @@ def bot(request):
                 return HttpResponse('ok')    
 
             stage3 = Order.objects.filter(user_id=user_id, active=True, address_source=None)
-            if stage2:
+            if stage3:
                 #Проверка на пользовательское исключение
                 if input_message.lower() == 'исключение':
                     stage3[0].address_source = stage3[0].tmp
@@ -243,7 +243,7 @@ def bot(request):
                 return HttpResponse('ok')
 
             stage4 = Order.objects.filter(user_id=user_id, active=True, address_destination=None)
-            if stage3:
+            if stage4:
                 #Здесь проверяем является ли входящее сообщение нужным адресом
                 #result = re.sub(r'^у*л*и*ц*а*п*р*о*с*п*е*к*т*.?\s*', '', input_message.strip())
                 if input_message.lower() == 'исключение':

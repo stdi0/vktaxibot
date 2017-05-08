@@ -13,8 +13,8 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
 <ul class="nav navbar-nav">
 <li><a href="/index">Главная</a></li>
-<li class="active"><a href="/active_orders">Назвать цену</a></li>
-<li><a href="/ok_orders">Передать в такси</a></li>
+<li><a href="/active_orders">Назвать цену</a></li>
+<li class="active"><a href="/ok_orders">Передать в такси</a></li>
 <li><a href="/canceled_orders">Отменененные заказы</a></li>
 <li><a href="/completed_orders">Завершенные заказы</a></li>
 </ul>
@@ -29,7 +29,7 @@
 {% if result %}
 
 <div class="orders">
-<p class="lead">Назвать цену</p>
+<p class="lead">Передать в такси</p>
 <table class="table table-striped">
 <thead>
 <tr>
@@ -44,9 +44,6 @@
 </td>
 <td>
 <strong>Сообщение</strong>
-</td>
-<td>
-<strong>Цена</strong>
 </td>
 <td>
 <strong>Действие</strong>
@@ -69,13 +66,10 @@
 {{ order.message }}
 </td>
 <td>
-<form id="cost" method="get" action="/complete">
-<input type="text" name="cost" size="15">
+<form id="cost" method="get" action="/complete2">
 <input type="hidden" name="id" value="{{ order.id }}">
+<input type="submit" value="Подтвердить">
 </form>
-</td>
-<td>
-<a onclick="document.getElementById('cost').submit(); return false;">Выполнить</a> | <a href="/cancel/{{ order.id }}">Отклонить</a>
 </td>
 </tr>
 {% endfor %}

@@ -44,7 +44,7 @@ def active_orders(request):
             page = request.GET.get('page')
             try:
                 result = paginator.page(page)
-            except PageNotAnInteger:
+            except PageNotAnInteger: 
                 result = paginator.page(1)
             except EmptyPage:
                 result = paginator.page(paginator.num_pages)

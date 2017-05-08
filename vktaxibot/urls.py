@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^ok_orders/', views.ok_orders, name='ok_orders'),
     #url(r'^complete/(?P<id>\d*)/$', views.complete, name='complete'),
     url(r'^complete/$', views.complete, name='complete'),
-    url(r'^complete2/$', views.complete2, name='complete2'),
+    url(r'^complete2/$', views.complete2, name='complete2'), 
     url(r'^cancel/(?P<id>\d*)/$', views.cancel, name='cancel'),
     url(r'^login/', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout,

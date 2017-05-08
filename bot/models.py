@@ -10,7 +10,8 @@ class Order(models.Model):
     #1 - active
     #0 - completed
     #2 - canceled
-    #3 - Error code
+    #3 - Ok
+    #4 - Незавершенные 
     city = models.CharField(max_length=30, default=None, null=True)
     phone = models.CharField(max_length=20, default=None, null=True)
     active = models.BooleanField(default=False)

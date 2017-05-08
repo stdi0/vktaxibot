@@ -125,7 +125,7 @@ def complete(request):
     order_id = request.GET['id']
     order =  get_object_or_404(Order, id=int(order_id))
     user_id = order.user_id
-    message = 'Заказ номер ' + order_id + ' направлен водителям. Стоимость по данному заказу составит ' + cost + ' руб. Ожидайте звонка или смс. Для отмены заказа напишите \"отмена\" и номер заказа.'
+    message = 'Стоимость по данному заказу составит ' + cost + ' руб. Чтобы оформить заказ, напишите "продолжить". Для отмены заказа напишите \"отмена\".'
     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(message) + '&access_token=' + token)
     resp = urllib.request.urlopen(request)
     order.status = 0
@@ -267,6 +267,7 @@ def bot(request):
                     output_message = 'Отлично, Ваш заказ направлен водителям! Ожидайте звонка или смс! Для отмены заказа, напишите слово \"отмена\".'
                     request = urllib.request.Request('https://api.vk.com/method/messages.send?user_id=' + str(user_id) + '&message=' + quote(output_message) + '&access_token=' + token)
                     resp = urllib.request.urlopen(request)
+                    return HttpResponse('ok')
 
 
             if input_message.lower() == 'такси':

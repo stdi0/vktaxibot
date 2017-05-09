@@ -119,7 +119,7 @@ def canceled_orders(request):
         context = {'result': result}
         return render(request, 'bot/canceled_orders.html', context)
     return HttpResponseRedirect(reverse('login'))
-
+ 
 def complete(request):
     cost = request.GET['cost']
     order_id = request.GET['id']
